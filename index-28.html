@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>San Beda Student Interview</title>
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #8b0000;
+            color: white;
+            overflow: hidden;
+        }
+
+        .screen {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: opacity 1s ease;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .fade-out {
+            opacity: 0;
+        }
+
+        .start-box {
+            padding: 25px;
+        }
+
+        h1 {
+            font-size: 42px;
+            margin-bottom: 12px;
+        }
+
+        .start-box p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        button {
+            border: none;
+            border-radius: 8px;
+            padding: 14px 30px;
+            background: white;
+            color: #8b0000;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.85;
+        }
+
+        .question-box {
+            width: 90%;
+            max-width: 850px;
+        }
+
+        .number {
+            font-size: 18px;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .question {
+            font-size: 30px;
+            line-height: 1.4;
+            margin-bottom: 30px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 180px;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            resize: none;
+            font-size: 17px;
+            font-family: Arial, sans-serif;
+            outline: none;
+        }
+
+        .next {
+            margin-top: 20px;
+        }
+
+        .thank-you h1 {
+            font-size: 52px;
+        }
+
+        .thank-you p {
+            font-size: 19px;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 32px;
+            }
+
+            .question {
+                font-size: 23px;
+            }
+
+            textarea {
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="screen" id="startScreen">
+        <div class="start-box">
+            <h1>San Beda Student Interview</h1>
+            <p>School Interview Activity</p>
+            <button onclick="startInterview()">Click to Start</button>
+        </div>
+    </div>
+
+    <div class="screen hidden" id="questionScreen">
+        <div class="question-box">
+            <div class="number" id="questionNumber"></div>
+            <div class="question" id="question"></div>
+
+            <textarea id="answer" placeholder="Type the student's answer here..."></textarea>
+
+            <br>
+            <button class="next" onclick="nextQuestion()">Next</button>
+        </div>
+    </div>
+
+    <div class="screen hidden" id="thankYouScreen">
+        <div class="thank-you">
+            <h1>Thank You!</h1>
+            <p>Thank you for participating in the interview.</p>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            "Why did you choose San Beda as your school?",
+            "How would you describe the academic environment in San Beda?",
+            "What is the most challenging part of being a San Beda student?",
+            "What is the student community like in San Beda?",
+            "What values do you think San Beda teaches its students?",
+            "What makes San Beda different from other schools?",
+            "What is your most memorable experience in San Beda?",
+            "What advice would you give to students who want to study in San Beda?",
+            "What is one misconception people have about San Beda students?",
+            "What makes SBCA different from other San Beda branches?",
+            "If you could describe San Beda in three words, what would they be and why?"
+        ];
+
+        let currentQuestion = 0;
+
+        function startInterview() {
+            const startScreen = document.getElementById("startScreen");
+            startScreen.classList.add("fade-out");
+
+            setTimeout(() => {
+                startScreen.classList.add("hidden");
+                document.getElementById("questionScreen").classList.remove("hidden");
+                showQuestion();
+            }, 1000);
+        }
+
+        function showQuestion() {
+            document.getElementById("questionNumber").textContent =
+                "Question " + (currentQuestion + 1) + " of " + questions.length;
+
+            document.getElementById("question").textContent =
+                questions[currentQuestion];
+
+            document.getElementById("answer").value = "";
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                showQuestion();
+            } else {
+                const questionScreen = document.getElementById("questionScreen");
+                questionScreen.classList.add("fade-out");
+
+                setTimeout(() => {
+                    questionScreen.classList.add("hidden");
+                    document.getElementById("thankYouScreen").classList.remove("hidden");
+                }, 1000);
+            }
+        }
+    </script>
+
+</body>
+</html>
